@@ -15,6 +15,13 @@ func _ready() -> void:
 
 func destroy() -> void:
 	queue_free()
+	
+func _input(event: InputEvent) -> void:
+	if PlayerManager.player_state == PlayerManager.PLAYER_IN_SCENE_TRANSITION and Input.is_anything_pressed():
+		if animation_player.current_animation != "transition_exit":
+			transition_midpoint.emit()
+		transition_finished.emit()
+		destroy()
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "transition_enter":
