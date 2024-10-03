@@ -1,18 +1,22 @@
 extends Node
 
 @export var current_camera: Camera3D
-@export var current_room: Room
-@export var current_view: RoomView
 @export var current_background: Sprite2D
 @export var fader_ref: ColorRect
 @export var document_canvas: DocumentCanvas
+@export var drawing_canvas: Node2D
+@export var default_room: PackedScene
 
-var drawing_canvas: Node2D
+var current_room: Room
+var current_view: RoomView
 
 var room_list: Dictionary
 var room_names: Array
 
 func _ready() -> void:
+	populate_room_list()
+	initialize_room(default_room)
+	
 	LimboConsole.register_command(load_room, "load_room", "loads a room")
 	LimboConsole.register_command(dump_room_list, "dump_room_list", "lists rooms")
 	LimboConsole.register_command(set_position, "set_position", "sets your position")
@@ -101,24 +105,31 @@ func initialize_document(document: Document, do_fade: bool) -> void:
 
 func get_all_files(path: String, file_ext := "", files: Dictionary = {}) -> Dictionary:
 	var dir: DirAccess = DirAccess.open(path)
-	print("Opened ", dir)
 	if dir:
 		dir.list_dir_begin()
 
 		var file_name: String = dir.get_next()
-
+		#print("File name is ", file_name)
 		while file_name != "":
 			if dir.current_is_dir():
 				files = get_all_files(dir.get_current_dir() + "/" + file_name, file_ext, files)
+				#print("Is current directory")
 			else:
-				print("Got here 1 and file_name is ", file_name)
-				if file_ext and file_name.get_extension() and file_name.trim_suffix(".remap").get_extension() != file_ext:
-					file_name = dir.get_next()
-					continue
+				if file_ext and file_name.get_extension() != file_ext:
+					if file_name.get_extension() == "remap" and file_name.trim_suffix(".remap").get_extension() == file_ext:
+						pass
+					elif file_name.get_extension() == "import" and file_name.trim_suffix(".import").get_extension() == file_ext:
+						pass
+					else:
+						file_name = dir.get_next()
+						continue
 				if file_name.get_extension() == "remap":
+					#print("Got to remap stage")
 					file_name = file_name.trim_suffix(".remap")
-					print("Got here 3")
-				print("File name is ", file_name)
+				elif file_name.get_extension() == "import":
+					#print("Got to import stage")
+					file_name = file_name.trim_suffix(".import")
+				print("Truncated file name is ", file_name)
 				files[file_name] = dir.get_current_dir() + "/" + file_name
 
 			file_name = dir.get_next()
@@ -130,7 +141,6 @@ func get_all_files(path: String, file_ext := "", files: Dictionary = {}) -> Dict
 func populate_room_list() -> void:
 	room_list = get_all_files("res://rooms/", "tscn")
 	for key: String in room_list.keys():
-		print("Obtained ", key)
 		room_names.append(key.trim_suffix(".tscn"))
 	
 func load_room(room_name: String) -> void:
