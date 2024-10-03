@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://cklt1djwikvon"]
+
+[ext_resource type="Shader" path="res://shaders/object_depth_shader.gdshader" id="1_is4fo"]
+
+[sub_resource type="Gradient" id="Gradient_7tqy2"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xdi7q"]
+gradient = SubResource("Gradient_7tqy2")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_is4fo")
+shader_parameter/image_texture = SubResource("GradientTexture1D_xdi7q")

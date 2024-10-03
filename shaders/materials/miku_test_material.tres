@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://b785o2gd1sdo0"]
+
+[ext_resource type="Texture2D" uid="uid://y0dnrti1o6vr" path="res://test/Textures/T_MikuExpo_MAIN.png" id="2_1omve"]
+[ext_resource type="Shader" path="res://shaders/object_depth_shader.gdshader" id="2_b3ko1"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("2_b3ko1")
+shader_parameter/image_texture = ExtResource("2_1omve")

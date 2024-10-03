@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://wb6s0mossd8w"]
+
+[ext_resource type="Shader" path="res://shaders/canvas_post_process_shader.gdshader" id="1_wmy81"]
+
+[resource]
+shader = ExtResource("1_wmy81")
+shader_parameter/intensity = 1.0

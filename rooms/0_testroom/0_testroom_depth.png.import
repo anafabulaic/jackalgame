@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://mlq51sfb7e7y"
+path="res://.godot/imported/0_testroom_depth.png-caf186d34516985b1bb6b0d2836d60f6.image"
+
+[deps]
+
+source_file="res://rooms/0_testroom/0_testroom_depth.png"
+dest_files=["res://.godot/imported/0_testroom_depth.png-caf186d34516985b1bb6b0d2836d60f6.image"]
+
+[params]
+

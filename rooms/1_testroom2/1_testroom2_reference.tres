@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="SceneReference" load_steps=2 format=3 uid="uid://crevnmgvqv82a"]
+
+[ext_resource type="Script" path="res://resources/scene_reference_resource.gd" id="1_x841x"]
+
+[resource]
+script = ExtResource("1_x841x")
+scene = "res://rooms/1_testroom2/1_testroom2_scene.tscn"
+scene_name = "Test Room 2"

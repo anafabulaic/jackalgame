@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://caikpik4i3p1x"]
+
+[ext_resource type="Script" path="res://scripts/player_controller.gd" id="1_pv7ow"]
+[ext_resource type="PackedScene" uid="uid://m08nivet0fd3" path="res://test/KeyframeChef_Miku_10thEdition_Rig.fbx" id="2_adjdx"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_xyijx"]
+height = 2.28827
+radius = 0.691613
+
+[node name="PlayerScene" type="CharacterBody3D" node_paths=PackedStringArray("area_collider")]
+script = ExtResource("1_pv7ow")
+area_collider = NodePath("Area3D")
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.24276, 0)
+shape = SubResource("CylinderShape3D_xyijx")
+
+[node name="KeyframeChef_Miku_10thEdition_Rig" parent="." instance=ExtResource("2_adjdx")]
+transform = Transform3D(-7.40908e-08, 0, 1.695, 0, 1.695, 0, -1.695, 0, -7.40908e-08, 0, 0.0226177, 0)
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.24276, 0)
+collision_mask = 3
+
+[node name="AreaCollider" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_xyijx")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]

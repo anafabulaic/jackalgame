@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://ck5ifhuco5nv5"]
+
+[ext_resource type="PackedScene" uid="uid://m08nivet0fd3" path="res://test/KeyframeChef_Miku_10thEdition_Rig.fbx" id="1_rqchl"]
+
+[node name="KeyframeChef_Miku_10thEdition_Rig" instance=ExtResource("1_rqchl")]

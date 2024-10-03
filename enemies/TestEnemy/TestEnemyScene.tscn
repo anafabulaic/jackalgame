@@ -1,0 +1,69 @@
+[gd_scene load_steps=11 format=3 uid="uid://c5p1exocegoi4"]
+
+[ext_resource type="Script" path="res://enemies/TestEnemy/test_enemy_script.gd" id="1_a8jev"]
+[ext_resource type="Material" uid="uid://cklt1djwikvon" path="res://shaders/materials/enemy_material.tres" id="2_ketdt"]
+[ext_resource type="Script" path="res://scripts/state_machine/state_machine_script.gd" id="3_pwntb"]
+[ext_resource type="Script" path="res://enemies/TestEnemy/idle_state.gd" id="4_3dwyx"]
+[ext_resource type="Script" path="res://enemies/TestEnemy/chase_state.gd" id="4_4muvi"]
+[ext_resource type="Script" path="res://enemies/TestEnemy/startled_state.gd" id="5_0t7mg"]
+[ext_resource type="Script" path="res://enemies/TestEnemy/attacking_state.gd" id="5_sy7yf"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_42ue3"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_qvk88"]
+material = ExtResource("2_ketdt")
+top_radius = 0.0
+height = 0.886
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_5x8t2"]
+height = 2.28827
+radius = 0.52543
+
+[node name="TestEnemyScene" type="CharacterBody3D" node_paths=PackedStringArray("nav_agent", "state_machine")]
+script = ExtResource("1_a8jev")
+enemy_health = 20
+nav_agent = NodePath("NavigationAgent3D")
+state_machine = NodePath("StateMachine")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08619, 0)
+mesh = SubResource("CapsuleMesh_42ue3")
+surface_material_override/0 = ExtResource("2_ketdt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(6.19781e-16, -2.97235e-08, 0.324376, -0.324376, -2.97236e-08, 1.83156e-23, 1.41789e-08, -0.679995, -1.41789e-08, 0, 0, -0.856769)
+mesh = SubResource("CylinderMesh_qvk88")
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.24276, 0)
+shape = SubResource("CylinderShape3D_5x8t2")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+target_desired_distance = 50.0
+avoidance_enabled = true
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("default_state")]
+script = ExtResource("3_pwntb")
+default_state = NodePath("IdleState")
+
+[node name="IdleState" type="Node" parent="StateMachine"]
+script = ExtResource("4_3dwyx")
+
+[node name="IdleTimer" type="Timer" parent="StateMachine/IdleState"]
+
+[node name="StartledState" type="Node" parent="StateMachine"]
+script = ExtResource("5_0t7mg")
+
+[node name="StartleTimer" type="Timer" parent="StateMachine/StartledState"]
+wait_time = 5.0
+
+[node name="ChaseState" type="Node" parent="StateMachine"]
+script = ExtResource("4_4muvi")
+
+[node name="AttackingState" type="Node" parent="StateMachine"]
+script = ExtResource("5_sy7yf")
+
+[connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]
+[connection signal="timeout" from="StateMachine/IdleState/IdleTimer" to="StateMachine/IdleState" method="_on_idle_timer_timeout"]
+[connection signal="timeout" from="StateMachine/StartledState/StartleTimer" to="StateMachine/StartledState" method="_on_startle_timer_timeout"]

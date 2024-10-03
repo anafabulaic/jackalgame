@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Document" load_steps=3 format=3 uid="uid://d2nbk585qnoa2"]
+
+[ext_resource type="Texture2D" uid="uid://ck5wapnh4f15q" path="res://test/test_inspectable.png" id="1_jpn5j"]
+[ext_resource type="Script" path="res://resources/document_resource.gd" id="1_lq517"]
+
+[resource]
+script = ExtResource("1_lq517")
+document_image = ExtResource("1_jpn5j")
+document_text = Array[String](["TEST 1 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam imperdiet finibus ligula eu ullamcorper. Duis fermentum condimentum vehicula. Donec pellentesque arcu bibendum purus venenatis, vulputate commodo arcu vehicula. Ut tincidunt, diam eu porttitor semper, risus tellus feugiat mi, id malesuada dui massa in mauris. Nunc vel dignissim arcu. ", "TEST 2 Nulla facilisi. Sed ligula velit, condimentum ut aliquam euismod, fermentum vitae dui. Aenean ultricies finibus sem, id tincidunt mi blandit ac. Praesent vitae erat tempor ipsum hendrerit varius. Integer malesuada elit ut diam eleifend, vitae iaculis nisi commodo. Proin vel sagittis augue. Aenean luctus turpis nec diam lobortis, feugiat tristique mauris vestibulum. Donec semper ex vitae tortor sodales, non vehicula lorem laoreet. "])

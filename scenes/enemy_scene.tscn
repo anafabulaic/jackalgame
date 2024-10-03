@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkrobg17fdq4r"]
+
+[ext_resource type="Script" path="res://scripts/enemy/enemy_script.gd" id="1_3rv2j"]
+[ext_resource type="Material" uid="uid://cklt1djwikvon" path="res://shaders/materials/enemy_material.tres" id="2_xcdjk"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_qasvs"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_jn6kl"]
+height = 2.28827
+radius = 0.52543
+
+[node name="EnemyScene" type="CharacterBody3D" node_paths=PackedStringArray("nav_agent")]
+script = ExtResource("1_3rv2j")
+nav_agent = NodePath("NavigationAgent3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08619, 0)
+mesh = SubResource("CapsuleMesh_qasvs")
+surface_material_override/0 = ExtResource("2_xcdjk")
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.24276, 0)
+shape = SubResource("CylinderShape3D_jn6kl")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]

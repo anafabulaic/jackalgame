@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c7me7m0nxqja"
+path="res://.godot/imported/2_testroom3_mesh.obj-c0050038299d3b5f4950f0f6f403abe4.mesh"
+
+[deps]
+
+files=["res://.godot/imported/2_testroom3_mesh.obj-c0050038299d3b5f4950f0f6f403abe4.mesh"]
+
+source_file="res://rooms/2_testroom3/2_testroom3_mesh.obj"
+dest_files=["res://.godot/imported/2_testroom3_mesh.obj-c0050038299d3b5f4950f0f6f403abe4.mesh", "res://.godot/imported/2_testroom3_mesh.obj-c0050038299d3b5f4950f0f6f403abe4.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
